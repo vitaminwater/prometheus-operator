@@ -18,8 +18,6 @@ spec:
         env:
         - name: GF_AUTH_BASIC_ENABLED
           value: "true"
-        - name: GF_AUTH_ANONYMOUS_ENABLED
-          value: "true"
         - name: GF_SECURITY_ADMIN_USER
           valueFrom:
             secretKeyRef:
@@ -30,6 +28,8 @@ spec:
             secretKeyRef:
               name: grafana-credentials
               key: password
+        - name: GF_PATHS_DATA
+          value: /data
         volumeMounts:
         - name: grafana-storage
           mountPath: /data
