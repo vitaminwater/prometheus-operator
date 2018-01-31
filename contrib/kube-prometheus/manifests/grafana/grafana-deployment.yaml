@@ -1,11 +1,13 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
+  namespace: monitoring
   name: grafana
 spec:
   replicas: 1
   template:
     metadata:
+      namespace: monitoring
       labels:
         app: grafana
     spec:
@@ -36,6 +38,10 @@ spec:
         ports:
         - name: web
           containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: 3000
         resources:
           requests:
             memory: 100Mi
